@@ -93,3 +93,6 @@ You can change the sentences in `command: ` to whatever sentences you like, add 
 3) Save the file, and you're good to go.
 
 #### WIP: Using intents to more loosly match sentences.
+
+
+Shoutout to the [repo by Github user Avraham](https://github.com/avraham/hass_radarr_sonarr_search_by_voice) for trying this some time ago, but unfortunately I had difficulties trying to get this to work.
