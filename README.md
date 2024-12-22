@@ -1,6 +1,6 @@
 # Hassarr Integration
 
-Hassarr is a custom Home Assistant integration to add movies and TV shows to Radarr and Sonarr.
+Hassarr is a custom Home Assistant integration to add movies and TV shows to Radarr, Sonarr and Overseerr.
 
 ## Requirements
 
@@ -57,16 +57,16 @@ There's two ways of adding this, through the UI or directly into your automation
 
 #### Adding Automations in the UI
 1) In Home Assistant, go to Settings > Automations & Scenes > + Create Automation > Create New Automation
-2) + Add Trigger > Sentence, and fill in something like this `Download {title} for me on radar`. It's important to write `radar` instead of `radarr` as your speech-to-text will always transcribe the spoken word `radar` to `radar`, and not with `rr`. Add multiple sentences if you want multiple phrases to trigger it to add a movie to Radarr
+2) + Add Trigger > Sentence, and fill in something like this `Download {title} for me on radar`. It's important to write `radar` instead of `radarr` as your speech-to-text will always transcribe the spoken word `radar` to `radar`, and not with `rr`. Add multiple sentences if you want multiple phrases to trigger it to add a movie to Radarr. Same applies to Sonarr or Overseerr.
 3) + Add Action > Type in `Hassarr` > Select `Hassarr: add_movie` > Press the three vertical dots > `Edit in YAML` > and fill in the following into the YAML editor
     ```
-    action: hassarr.add_movie
+    action: hassarr.add_radarr_movie
     metadata: {}
     data:
     title: "{{ trigger.slots.title }}"
     ```
 4) Hit Save, give it a name like `Add Movie to Radarr`
-5) Repeat steps 1-4 for Sonarr
+5) Repeat steps 1-4 for Sonarr (or do it for Overseerr for movies and tv shows, if you prefer)
 
 Now you should be able to add a movie or TV show to Radarr and Sonarr using the sentences you setup!
 
@@ -91,6 +91,7 @@ Now you should be able to add a movie or TV show to Radarr and Sonarr using the 
 ```
 You can change the sentences in `command: ` to whatever sentences you like, add more etc.
 3) Save the file, and you're good to go.
+4) Make a copy of this for Sonarr (or for Overseerr, one for movies and one for tv shows, if you so prefer)
 
 #### WIP: Using intents to more loosly match sentences.
 
