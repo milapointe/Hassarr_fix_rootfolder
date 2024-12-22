@@ -63,7 +63,7 @@ There's two ways of adding this, through the UI or directly into your automation
     action: hassarr.add_radarr_movie
     metadata: {}
     data:
-    title: "{{ trigger.slots.title }}"
+      title: "{{ trigger.slots.title }}"
     ```
 4) Hit Save, give it a name like `Add Movie to Radarr`
 5) Repeat steps 1-4 for Sonarr (or do it for Overseerr for movies and tv shows, if you prefer)
@@ -86,7 +86,8 @@ Now you should be able to add a movie or TV show to Radarr and Sonarr using the 
   actions:
   - action: hassarr.add_movie
     metadata: {}
-    data: {}
+      data:
+        title: ""{{ trigger.slots.title }}""
   mode: single
 ```
 You can change the sentences in `command: ` to whatever sentences you like, add more etc.
