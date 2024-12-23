@@ -38,25 +38,6 @@ def get_root_folder_path(url: str, headers: dict) -> str | None:
         return data[0].get("path")
     return None
 
-def get_quality_profile_id(url: str, headers: dict, profile_name: str) -> int | None:
-    """Get quality profile ID by name from the given URL.
-
-    Args:
-        url (str): The URL to fetch the quality profiles from.
-        headers (dict): The headers to include in the request.
-        profile_name (str): The name of the quality profile.
-
-    Returns:
-        int | None: The quality profile ID if found, None otherwise.
-    """
-    profiles = fetch_data(url, headers)
-    if profiles:
-        for profile in profiles:
-            if profile.get("name") == profile_name:
-                return profile.get("id")
-        _LOGGER.error(f"Quality profile '{profile_name}' not found")
-    return None
-
 def handle_add_media(hass: HomeAssistant, call: ServiceCall, media_type: str, service_name: str) -> None:
     """Handle the service action to add a media (movie or TV show).
 
@@ -80,7 +61,7 @@ def handle_add_media(hass: HomeAssistant, call: ServiceCall, media_type: str, se
 
     url = config_data.get(f"{service_name}_url")
     api_key = config_data.get(f"{service_name}_api_key")
-    quality_profile_name = config_data.get(f"{service_name}_quality_profile_name")
+    quality_profile_id = config_data.get(f"{service_name}_quality_profile_id")
 
     if not url or not api_key:
         _LOGGER.error(f"{service_name.capitalize()} URL or API key is missing")
@@ -100,12 +81,6 @@ def handle_add_media(hass: HomeAssistant, call: ServiceCall, media_type: str, se
         root_folder_url = urljoin(url, "api/v3/rootfolder")
         root_folder_path = get_root_folder_path(root_folder_url, headers)
         if not root_folder_path:
-            return
-
-        # Get quality profile ID
-        quality_profile_url = urljoin(url, "api/v3/qualityprofile")
-        quality_profile_id = get_quality_profile_id(quality_profile_url, headers, quality_profile_name)
-        if not quality_profile_id:
             return
 
         # Prepare payload
@@ -200,7 +175,7 @@ def handle_add_overseerr_media(hass: HomeAssistant, call: ServiceCall, media_typ
             "profileId": 0,
             "rootFolder": "",
             "languageProfileId": 0,
-            "userId": 0,
+            "userId": config_data.get("overseerr_user_id"),
             "seasons": "all" if media_type == "tv" else []
         }
         if media_type == "tv":
