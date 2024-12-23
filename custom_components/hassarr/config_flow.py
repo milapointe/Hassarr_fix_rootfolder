@@ -43,6 +43,61 @@ class HassarrConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             })
         )
 
+
+    async def async_step_reconfigure_overseerr(self, user_input=None):
+        """Handle reconfiguration for Overseerr."""
+        if user_input is not None:
+            # Update the existing config entry
+            data = dict(self._get_reconfigure_entry().data)
+            data.update(user_input)
+            self.hass.config_entries.async_update_entry(
+                self._get_reconfigure_entry(),
+                data=data
+            )
+            return await self.async_step_reconfigure_overseerr_user()
+
+        # Get existing data to pre-fill the form
+        existing_data = self._get_reconfigure_entry().data
+
+        return self.async_show_form(
+            step_id="reconfigure_overseerr",
+            data_schema=vol.Schema({
+                vol.Optional("overseerr_url", default=existing_data.get("overseerr_url", "")): str,
+                vol.Optional("overseerr_api_key", default=existing_data.get("overseerr_api_key", "")): str,
+            })
+        )
+
+    async def async_step_reconfigure_overseerr_user(self, user_input=None):
+        """Handle reconfiguration for Overseerr user selection."""
+        if user_input is not None:
+            # Update the existing config entry
+            data = dict(self._get_reconfigure_entry().data)
+            data.update(user_input)
+            self.hass.config_entries.async_update_entry(
+                self._get_reconfigure_entry(),
+                data=data
+            )
+            return self.async_update_reload_and_abort(
+                self._get_reconfigure_entry(),
+                data_updates=user_input,
+            )
+
+        # Get existing data to pre-fill the form
+        existing_data = self._get_reconfigure_entry().data
+        overseerr_url = existing_data.get("overseerr_url")
+        overseerr_api_key = existing_data.get("overseerr_api_key")
+
+        # Fetch users from Overseerr API
+        users = await self._fetch_overseerr_users(overseerr_url, overseerr_api_key)
+        user_options = {user["id"]: user["username"] for user in users}
+
+        return self.async_show_form(
+            step_id="reconfigure_overseerr_user",
+            data_schema=vol.Schema({
+                vol.Required("overseerr_user_id"): vol.In(user_options),
+            })
+        )
+
     async def async_step_reconfigure_radarr_sonarr(self, user_input=None):
         """Handle reconfiguration for Radarr & Sonarr."""
         if user_input is not None:
