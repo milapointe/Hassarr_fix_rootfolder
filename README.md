@@ -28,23 +28,16 @@ Hassarr is a custom Home Assistant integration to add movies and TV shows to Rad
 Now you should have the HACS button showing on the left menu, which should bring you to the HACS dashboard
 
 ### Install Hassarr on HACS
-1) Go to your HACS dashboard
-2) Press the three vertical dots icon at the top right
-3) Select "Custom Repositories"
-4) Fill in this repo's URL: https://github.com/TegridyTate/Hassarr
-5) Set type as "Integration"
-6) Now look up "Hassarr" in the HACS Store search bar and download it
-7) Add Hassarr to your Home Assistant integrations: <your_hass_ip>:<your_hass_port>/config/integrations/dashboard
-8) Press "+ Add Integration"
-9) Look up "Hassarr" and select it
-10) It should prompt you with the following, fill them in and press submit
-* `radarr_url`: <your_radarr_url>:<your_radarr_port>
-* `radarr_api_key`: Can be found at <your_radarr_url>:<your_radarr_port>/settings/general
-* `radarr_quality_profile_name`: The name of the quality profile you want to use for Radarr.
-* `sonarr_url`: <your_sonarr_url>:<your_sonarr_port>
-* `sonarr_api_key`: Can be found at <your_sonarr_url>:<your_sonarr_port>/settings/general
-* `sonarr_quality_profile_name`: The name of the quality profile you want to use for Sonarr.
-Press Submit
+1) Press the button to add this custom repo to HACS
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?repository=Hassarr&owner=TegridyTate&category=Custom+Integration)
+2) Now look up "Hassarr" in the HACS Store search bar and download it
+3) Restart your home assistant again for Hassarr to be properly added: `docker-compose restart <your_container_name>`
+4) Add Hassarr to your Home Assistant integrations: <your_hass_ip>:<your_hass_port>/config/integrations/dashboard
+5) Press "+ Add Integration"
+6) Look up "Hassarr" and select it
+7) It should prompt you to pick either Radarr & Sonarr, or Overseerr. Pick whichever service(s) you want to use and follow the instructions.
+8a) For Radarr & Sonarr, after filling in the urls and api keys, it will prompt you with the quality profiles you want to use for each service.
+8b) For Overseerr, after filling in the urls and api keys, it will prompt you with the Overseerr user you want to use for making requests. 
 
 Now Hassarr should be installed, and you can create an Automation or Intent to have sentences trigger downloads on Sonarr and Radarr.
 
