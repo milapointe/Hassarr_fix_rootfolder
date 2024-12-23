@@ -30,7 +30,7 @@ Now you should have the HACS button showing on the left menu, which should bring
 ### Install Hassarr on HACS
 1) Go to your HACS dashboard
 2) Press the three vertical dots icon at the top right
-3) Select "Custom Respositories"
+3) Select "Custom Repositories"
 4) Fill in this repo's URL: https://github.com/TegridyTate/Hassarr
 5) Set type as "Integration"
 6) Now look up "Hassarr" in the HACS Store search bar and download it
