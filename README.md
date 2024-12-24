@@ -68,16 +68,16 @@ Now you should be able to add a movie or TV show to Radarr and Sonarr using the 
 2) Paste in the following
 ```
 - id: '1734867354703'
-  alias: New automation
+  alias: Add movie using Assist
   description: ''
   triggers:
   - trigger: conversation
     command:
-    - Add {title} to radar
-    - Download {title} on radar
+    - (Download|Add|Send) movie {title} [on|to]  [radarr|radar]
+    - (Baixa|Adiciona|Envia)[r] [o] filme {title} [no|ao|para o|para] [radarr|radar]
   conditions: []
   actions:
-  - action: hassarr.add_movie
+  - action: hassarr.add_radarr_movie
     metadata: {}
       data:
         title: ""{{ trigger.slots.title }}""
@@ -87,7 +87,5 @@ You can change the sentences in `command: ` to whatever sentences you like, add 
 3) Save the file, and you're good to go.
 4) Make a copy of this for Sonarr (or for Overseerr, one for movies and one for tv shows, if you so prefer)
 
-#### WIP: Using intents to more loosly match sentences.
-
-
 Shoutout to the [repo by Github user Avraham](https://github.com/avraham/hass_radarr_sonarr_search_by_voice) for trying this some time ago, but unfortunately I had difficulties trying to get this to work.
+Make sure to check the [Template sentence syntax](https://developers.home-assistant.io/docs/voice/intent-recognition/template-sentence-syntax/) to understant how to change the activation commands.
