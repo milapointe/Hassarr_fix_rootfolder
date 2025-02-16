@@ -54,7 +54,6 @@ def handle_add_media(hass: HomeAssistant, call: ServiceCall, media_type: str, se
         _LOGGER.error("Title is missing in the service call data")
         return
    
-    
     _LOGGER.info(f"Title received: {title}")
 
     # Access stored configuration data
