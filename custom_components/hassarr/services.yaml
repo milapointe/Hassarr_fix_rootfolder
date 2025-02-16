@@ -18,6 +18,9 @@ add_overseerr_movie:
     title:
       description: "Title of the movie"
       example: "Gladiator"
+    library:
+      description: "Path of the library"
+      example: "/media/movie"
 
 add_overseerr_tv_show:
   description: "Add a TV show to Overseerr"
@@ -25,3 +28,6 @@ add_overseerr_tv_show:
     title:
       description: "Title of the TV show"
       example: "Breaking Bad"
+    library:
+      description: "Path of the library"
+      example: "/media/tvshow"
