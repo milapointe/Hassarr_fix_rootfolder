@@ -53,7 +53,8 @@ def handle_add_media(hass: HomeAssistant, call: ServiceCall, media_type: str, se
     if not title:
         _LOGGER.error("Title is missing in the service call data")
         return
-
+   
+    
     _LOGGER.info(f"Title received: {title}")
 
     # Access stored configuration data
@@ -122,11 +123,17 @@ def handle_add_overseerr_media(hass: HomeAssistant, call: ServiceCall, media_typ
     """
     _LOGGER.info(f"Received call data: {call.data}")
     title = call.data.get("title")
-
+    library = call.data.get("library")
+    
     if not title:
         _LOGGER.error("Title is missing in the service call data")
         return
-
+    if not library:
+        _LOGGER.info(f"Library received: {library}")
+        library = ""
+    else:
+        _LOGGER.info(f"Library received: {library}")
+        
     _LOGGER.info(f"Title received: {title}")
 
     # Access stored configuration data
@@ -173,7 +180,7 @@ def handle_add_overseerr_media(hass: HomeAssistant, call: ServiceCall, media_typ
             "is4k": False,
             "serverId": 0,
             "profileId": 0,
-            "rootFolder": "",
+            "rootFolder": "{library}",
             "languageProfileId": 0,
             "userId": config_data.get("overseerr_user_id"),
             "seasons": "all" if media_type == "tv" else []
